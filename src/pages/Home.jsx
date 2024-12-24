@@ -1,95 +1,67 @@
-import { useState } from "react";
+import styled from "styled-components";
+import MonthNavigation from "../components/MonthNavigation";
+import CreateExpense from "../components/CreateExpense";
+import ExpenseList from "../components/ExpenseList";
+import { useState, useEffect } from "react";
+import supabase from "../utils/supabase";
 
-const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+const Container = styled.main`
+  max-width: 800px;
 
-const MonthDisplay = () => {
-  return (
-    <div>
-      <h1>Months of the Year</h1>
-      <ul>
-        {months.map((month, index) => (
-          <li key={index}>{month}</li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+  width: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 20px;
+
+  margin: 0 auto;
+`;
 
 function Home() {
+  const [month, setMonth] = useState([]);
   const [date, setDate] = useState([]);
-  const [item, setItem] = useState([]);
-  const [price, setPrice] = useState([]);
-  const [content, setContent] = useState([]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault(); // 기본 폼 제출 방지
-    const newItem = { Item };
-    resetForm(); // 입력 필드 초기화
-  };
 
-  // 🟠 resetForm: 입력 필드를 초기화하는 함수
-  const resetForm = () => {
-    setDate("");
-    setItem(0);
-    setPrice(0);
-    setContent(0);
-  };
+  
+  const event    
+
+
+  // useEffect 사용
+  useEffect(() => {
+    const fetchDate = async () => {
+      let { data, error } = await supabase.from("expenses").select("*");
+      data.filter =
+
+
+      
+        // .select()
+        // .filter()
+        console.log(data);
+    };
+    fetchDate();
+
+
+
+
+  }, []);
+
+
+
+
+
+
+
+
 
   return (
-    <div>
-      홈
-      <form onSubmit={handleSubmit} className="expense-form">
-        <label>
-          날짜
-          <input
-            type="text"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            placeholder="Date"
-            required
-          />
-        </label>
-        <label>
-          항목
-          <input
-            type="number"
-            value={item}
-            onChange={(e) => setItem(+e.target.value)}
-          />
-        </label>
-        <label>
-          금액
-          <input
-            type="number"
-            value={price}
-            onChange={(e) => setPrice(+e.target.value)}
-          />
-        </label>
-        <label>
-          내용
-          <input
-            type="number"
-            value={content}
-            onChange={(e) => setContent(+e.target.value)}
-          />
-        </label>
-        <button type="submit">추가하기</button>
-      </form>
-    </div>
+    <Container>
+      <MonthNavigation />
+      <CreateExpense />
+      <ExpenseList />
+    </Container>
   );
 }
 
-export default App;
+export default Home;
