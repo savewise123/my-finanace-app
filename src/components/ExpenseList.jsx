@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const Section = styled.section`
-  background-color: #ffffff;
+  background-color: #fffffff6;
 
   border-radius: 16px;
 
@@ -82,11 +82,6 @@ const ExpenseDetails = styled.div`
 
 export default function ExpenseList() {
   return (
-
-
-
-
-    
     <Section>
       <ExpenseItemList>
         <ExpenseItem as={Link} to={`/expenses/${1}`}>

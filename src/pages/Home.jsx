@@ -18,46 +18,53 @@ const Container = styled.main`
 
   margin: 0 auto;
 `;
+// function Home() {
+
+//   const [expenses, setExpenses] = useState([])
+//   const [selectedMonth, setSelectedMonth] = useState([])
+
+// }
+
+// useEffect(() => {
+// const fetchExpenses = aysnc () => {
+// const {data,error} = await supabase.from("expenses"). select("*")
+// setExpenses(data)
+// }
+// fetchExpenses();
+// }, [])
+
+// console.log(expenses)
+
+// const filteredExpenses=expenses.filter((expense) => {
+//   const month = new Date(expense.date).getMonth() +1;
+//   return month = selectedMonth
+// })
 
 function Home() {
-  const [month, setMonth] = useState([]);
-  const [date, setDate] = useState([]);
+  const [expenses, setExpenses] = useState([]);
+  const [selectedMonth, setSelectedMonth] = useState([]);
 
-
-  
-  const event    
-
-
-  // useEffect 사용
   useEffect(() => {
-    const fetchDate = async () => {
-      let { data, error } = await supabase.from("expenses").select("*");
-      data.filter =
-
-
-      
-        // .select()
-        // .filter()
-        console.log(data);
+    const fetchExpenses = async () => {
+      const { data, error } = await supabase.from("expenses").select("*");
+      setExpenses(data);
     };
-    fetchDate();
-
-
-
-
+    fetchExpenses();
   }, []);
 
-
-
-
-
-
-
-
+  console.log(expenses);
+  const filteredExpenses = expenses.filter((expense) => {
+    const month = new Date(expense.date).getMonth() + 1;
+    return month === selectedMonth;
+  });
+  console.log(filteredExpenses);
 
   return (
     <Container>
-      <MonthNavigation />
+      <MonthNavigation
+        setSelectedMonth={setSelectedMonth}
+        selectedMonth={selectedMonth}
+      />
       <CreateExpense />
       <ExpenseList />
     </Container>
