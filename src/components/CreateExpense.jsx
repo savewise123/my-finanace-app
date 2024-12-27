@@ -74,10 +74,10 @@ const AddButton = styled.button`
   }
 `;
 
-function CreateExpense() {
-  const [date, setDate] = useState([]);
-  const [item, setItem] = useState([]);
-  const [amount, setAmount] = useState([]);
+function CreateExpense({ setExpenses, expenses }) {
+  const [date, setDate] = useState("");
+  const [item, setItem] = useState("");
+  const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
 
   const handleDateChange = (e) => {
@@ -95,12 +95,26 @@ function CreateExpense() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const dataReg = /^\d{4}-\d{2}-\d{2}$/;
+    if (!dataReg.test(date)) {
+     
+      alert("날짜 형식이 올바르지않습니다");
+      return;
+    }
+
     //supabase 추가
     const { data, error } = await supabase
       .from("expenses")
       .insert([
         { date: date, item: item, amount: amount, description: description },
-      ]);
+      ])
+      .select();
+    console.log(data);
+    setExpenses([...expenses, ...data]);
+
+    setDate("");
+    setItem("");
   };
 
   return (

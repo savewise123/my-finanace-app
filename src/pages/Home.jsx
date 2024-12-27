@@ -18,27 +18,6 @@ const Container = styled.main`
 
   margin: 0 auto;
 `;
-// function Home() {
-
-//   const [expenses, setExpenses] = useState([])
-//   const [selectedMonth, setSelectedMonth] = useState([])
-
-// }
-
-// useEffect(() => {
-// const fetchExpenses = aysnc () => {
-// const {data,error} = await supabase.from("expenses"). select("*")
-// setExpenses(data)
-// }
-// fetchExpenses();
-// }, [])
-
-// console.log(expenses)
-
-// const filteredExpenses=expenses.filter((expense) => {
-//   const month = new Date(expense.date).getMonth() +1;
-//   return month = selectedMonth
-// })
 
 function Home() {
   const [expenses, setExpenses] = useState([]);
@@ -65,8 +44,8 @@ function Home() {
         setSelectedMonth={setSelectedMonth}
         selectedMonth={selectedMonth}
       />
-      <CreateExpense />
-      <ExpenseList />
+      <CreateExpense setExpenses={setExpenses} expenses={expenses} />
+      <ExpenseList expenses={filteredExpenses} />
     </Container>
   );
 }

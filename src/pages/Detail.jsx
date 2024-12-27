@@ -56,6 +56,14 @@ const BackButton = styled(Button)`
 `;
 
 export default function Detail() {
+  const handleDeleteClick = async (id) => {
+    const { error } = await supabase.from("expenses").delete().eq("id", id);
+    if (error) {
+      return alert(error.message);
+    }
+    setExpenses(expenses.filter((expense) => expense.id !== id));
+  };
+
   return (
     <Container>
       <InputGroup>
@@ -81,7 +89,9 @@ export default function Detail() {
       </InputGroup>
       <ButtonGroup>
         <Button>수정</Button>
-        <Button danger="true">삭제</Button>
+        <Button danger="true" onClick={handleDeleteClick}>
+          삭제
+        </Button>
         <BackButton>뒤로 가기</BackButton>
       </ButtonGroup>
     </Container>
